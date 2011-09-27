@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+<p><a href="{{ object.url }}">{{ object.url }}</a></p>
 <form action="" method="post">
     {% csrf_token %}
     <ul>
