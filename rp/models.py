@@ -5,5 +5,3 @@ class RP(models.Model):
     url = models.URLField(unique=True)
     published = models.BooleanField(default=False)
     note = models.IntegerField(default=0)
-
-# Create your models here.
