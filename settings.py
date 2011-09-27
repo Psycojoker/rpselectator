@@ -2,6 +2,7 @@
 
 import os
 PROJECT_PATH = os.path.abspath(os.path.split(__file__)[0])
+PROJECT = os.path.split(PROJECT_PATH)[1]
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -103,7 +104,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
-ROOT_URLCONF = 'nurparp.urls'
+ROOT_URLCONF = '%s.urls' % PROJECT
 
 TEMPLATE_DIRS = (
     PROJECT_PATH + "/templates/",
