@@ -3,7 +3,7 @@
 {% block content %}
 <ul>
 {% for item in object_list %}
-    <li><a href="/admin/rp/rp/{{ item.id }}">{{ item.url }}</a></li>
+    <li>{% if item.published %}<b>{% endif %}<a href="/admin/rp/rp/{{ item.id }}">{{ item.url }}</a>{% if item.published %}</b>{% endif %}</li>
 {% endfor %}
 </ul>
 {% endblock %}
