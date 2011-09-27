@@ -5,3 +5,6 @@ class RP(models.Model):
     url = models.URLField(unique=True)
     published = models.BooleanField(default=False)
     note = models.IntegerField(default=0)
+
+    def __unicode__(self):
+        return "%s - %s" % (self.title if self.title else "No title", self.url)
