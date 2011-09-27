@@ -4,7 +4,7 @@
 {% if object_list %}
 <ul>
 {% for item in object_list %}
-    <li>{{ item.note }} - {% if item.published %}<b>{% endif %}<a href="{% url edit_rp item.id %}">{{ item.url }}</a>{% if item.published %}</b>{% endif %}</li>
+    <li>{% if item.published %}<b>{% endif %}<a href="{% url edit_rp item.id %}">{{ item.url }}</a>{% if item.published %}</b>{% endif %}</li>
 {% endfor %}
 </ul>
 {% else %}
