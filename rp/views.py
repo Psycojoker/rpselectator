@@ -11,6 +11,8 @@ def fill(request):
         a = 0
         for url in urlopen(url):
             url = url[:-1]
+            if not url.stip():
+                continue
             if not RP.objects.filter(url=url):
                 RP.objects.create(url=url)
                 a += 1
