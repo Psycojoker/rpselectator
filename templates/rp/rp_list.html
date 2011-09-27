@@ -1,9 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% if object_list %}
 <ul>
 {% for item in object_list %}
     <li>{{ item.note }} - {% if item.published %}<b>{% endif %}<a href="{% url edit_rp item.id %}">{{ item.url }}</a>{% if item.published %}</b>{% endif %}</li>
 {% endfor %}
 </ul>
+{% else %}
+<p>Empty items, go <a href="{% url fill %}">here</a> to import data</p>
+{% endif %}
 {% endblock %}
