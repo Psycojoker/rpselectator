@@ -1,4 +1,7 @@
+from re import sub
+from urllib2 import urlopen
 from mechanize import Browser
+from oice.langdet import langdet
 
 from django.conf.urls.defaults import patterns, url
 from django.views.generic import ListView, UpdateView
@@ -17,6 +20,12 @@ class RPEdit(UpdateView):
             b = Browser()
             b.open(data["instance"].url)
             data["initial"]["title"] = b.title()
+        if not data["instance"].langue:
+            text = urlopen(data["instance"].url).read()
+            text = sub("[^\w ]", lambda x: "", text)
+            lang = langdet.LanguageDetector.detect(text).iso.upper()
+            if lang in ('FR', 'EN', 'ES'):
+                data["initial"]["langue"] = lang
         return data
 
 urlpatterns = patterns('rp.views',
