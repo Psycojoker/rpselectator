@@ -17,3 +17,6 @@ class RSS(Feed):
 
     def item_link(self, item):
         return item.url
+
+    def item_guid(self, item):
+        return str(item.id)
