@@ -1,3 +1,5 @@
+from mechanize import Browser
+
 from django.conf.urls.defaults import patterns, url
 from django.views.generic import ListView, UpdateView
 
@@ -9,6 +11,13 @@ class RPEdit(UpdateView):
     success_url="/"
     model=RP
 
+    def get_form_kwargs(self, **kwargs):
+        data = super(RPEdit, self).get_form_kwargs(**kwargs)
+        if not data["instance"].title:
+            b = Browser()
+            b.open(data["instance"].url)
+            data["initial"]["title"] = b.title()
+        return data
 
 urlpatterns = patterns('rp.views',
     url(r'^fill/$', 'fill', name="fill"),
