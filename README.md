@@ -1,10 +1,10 @@
 # Presentation
 
-Prototype of press-review manager for [http://nurpa.be](NURPA).
+Prototype of press-review manager for [NURPA](http://nurpa.be).
 
 # Installation
 
-It's a classic [http://djangoproject.com](django) project.
+It's a classic [django](http://djangoproject.com) project.
 
 Dependancies:
 
@@ -12,4 +12,4 @@ Dependancies:
 * mechanize
 * oice.langdet
 
-All findable on [http://pypi.python.org](pypi) (use either "pip install" or "easy_install")
+All findable on [pypi](http://pypi.python.org) (use either "pip install" or "easy_install")
