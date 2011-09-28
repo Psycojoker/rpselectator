@@ -10,7 +10,10 @@ class RSS(Feed):
         return RP.objects.filter(published=True)[:20]
 
     def item_title(self, item):
-        return item.title if item.title else "No title yet"
+        title = item.title if item.title else "No title yet"
+        if item.langue:
+            title = "[%s]%s" % (item.langue.lower(), title)
+        return title
 
     def item_link(self, item):
         return item.url
