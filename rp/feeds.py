@@ -7,7 +7,7 @@ class RSS(Feed):
     description = "Last items published in our rp"
 
     def items(self):
-        return RP.objects.filter(published=True)[:20]
+        return RP.objects.filter(published=True).exclude(title__isnull=True).exclude(langue__isnull=True)[:20]
 
     def item_title(self, item):
         title = item.title if item.title else "No title yet"
