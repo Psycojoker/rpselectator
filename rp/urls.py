@@ -10,6 +10,25 @@ from models import RP
 
 from feeds import RSS
 
+def encode_sucks(text):
+    try:
+        return text.encode("Utf-8")
+    except UnicodeError:
+        pass
+    try:
+        return text.decode("Utf-8")
+    except UnicodeDecodeError:
+        pass
+    try:
+        return text.encode("iso-8859-1")
+    except:
+        pass
+    try:
+        return text.decode("iso-8859-1")
+    except:
+        pass
+    return "could not get the title :(, tell Bram that this website sucks"
+
 class RPEdit(UpdateView):
     success_url="/"
     model=RP
@@ -19,7 +38,8 @@ class RPEdit(UpdateView):
         if not data["instance"].title:
             b = Browser()
             b.open(data["instance"].url)
-            data["initial"]["title"] = b.title()
+            site = ".".join(map(lambda x: x.capitalize(), data["instance"].url.split("/")[2].replace("www.", "").split(".")[:-1]))
+            data["initial"]["title"] = "[%s] %s" % (site.encode("Utf-8"), encode_sucks(b.title()))
         if not data["instance"].langue:
             text = urlopen(data["instance"].url).read()
             text = sub("[^\w ]", lambda x: "", text)
