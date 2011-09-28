@@ -40,7 +40,7 @@ def fill(request):
     #a += get_urls("http://nurpa.be/log-archive")
     return HttpResponse("%s new rp items" % a)
 
-def encode_sucks(text):
+def encoding_sucks(text):
     try:
         return text.encode("Utf-8")
     except UnicodeError:
@@ -72,7 +72,7 @@ class RPEdit(UpdateView):
             try:
                 b.open(data["instance"].url)
                 site = ".".join(map(lambda x: x.capitalize(), data["instance"].url.split("/")[2].replace("www.", "").split(".")[:-1]))
-                data["initial"]["title"] = "[%s] %s" % (site.encode("Utf-8"), encode_sucks(b.title()))
+                data["initial"]["title"] = "[%s] %s" % (site.encode("Utf-8"), encoding_sucks(b.title()))
             except URLError:
                 pass
         if not data["instance"].langue:
