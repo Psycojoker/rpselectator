@@ -65,7 +65,9 @@ class RPEdit(UpdateView):
 
     def get_form_kwargs(self, **kwargs):
         data = super(RPEdit, self).get_form_kwargs(**kwargs)
+
         if not data["instance"].title:
+            data["initial"]["title"] = ""
             b = Browser()
             try:
                 b.open(data["instance"].url)
@@ -74,6 +76,7 @@ class RPEdit(UpdateView):
             except URLError:
                 pass
         if not data["instance"].langue:
+            data["initial"]["langue"] = ""
             try:
                 text = urlopen(data["instance"].url).read()
                 text = sub("[^\w ]", lambda x: "", text)
