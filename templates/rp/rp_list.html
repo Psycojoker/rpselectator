@@ -2,11 +2,34 @@
 
 {% block content %}
 {% if object_list %}
-<ul>
+
+    <table class="zebra-striped">
+      <thead>
+        <tr>
+          <th style="width: 15%;">Added</th>
+          <th>URL</th>
+        </tr>
+      </thead>
+      <tbody>
+
 {% for item in object_list %}
-    <li>{% if item.published %}<b>{% endif %}<a href="{% url edit_rp item.id %}">{{ item.url }}</a>{% if item.published %}</b>{% endif %}</li>
+        <!-- new item -->
+        <tr>
+          <td>{{ item.datetime }}</td>
+          <td>
+            <p class="trigger">
+            <span class="title">{% if item.title %}{{ item.title }}{% else %}No title yet{% endif %}</span>
+            <span class="url">{{ item.url }}</span>
+            </p>
+          </td>
+        </tr>
 {% endfor %}
-</ul>
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
 {% else %}
 <p>Empty items, go <a href="{% url fill %}">here</a> to import data</p>
 {% endif %}
