@@ -1,11 +1,35 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
+<!doctype html>
+<html>
 <head>
-    <title>RP</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=Utf-8" />
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="/static/css/global.css" />
+  <link rel="icon" href="http://nurpa.be/favicon.png" />
+
+  <title>NURPA RP</title>
 </head>
-    <body>
+<body>
+<div id="wrapper">
+  <ul id="nav">
+    <li><a href="#">Manage latest links</a></li><li><a href="#">Published links</a></li><li><a href="#">Archives</a></li><li id="rss"><a href="#">RSS</a></li>
+  </ul>
+
+  <div id="global">
 {% block content %}
 {% endblock %}
-    </body>
+  </div>
+
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.js"></script>
+<script src="/static/js/charCount.js"></script>
+<script>window.jQuery || document.write('<script src="/static/js/libs/jquery-1.6.4.min.js">\x3C/script>')</script>
+<script>
+$(document).ready(function(){
+  $(".edit").hide();
+  $(".tweet").charCount();
+  $(".trigger").click(function(){
+    $(this).siblings('.edit').slideToggle();
+  });
+});
+</script>
+</body>
 </html>
