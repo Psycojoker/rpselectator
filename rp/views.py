@@ -3,6 +3,7 @@
 from time import sleep
 from re import sub
 from urllib2 import urlopen, URLError
+from datetime import datetime
 from mechanize import Browser
 from oice.langdet import langdet
 
@@ -30,8 +31,9 @@ def fill(request):
         for url in urls.split("\n"):
             if not url.strip():
                 continue
+            date, url = url.split(" ", 1)
             if not RP.objects.filter(url=url):
-                RP.objects.create(url=url)
+                RP.objects.create(url=url, datetime=datetime.fromtimestamp(int(date)))
                 a += 1
         return a
 
