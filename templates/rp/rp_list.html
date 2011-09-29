@@ -18,7 +18,7 @@
           <td>{{ item.datetime|date:"d/m/Y" }}</td>
           <td>
             <p class="trigger">
-            <span class="title">{% if item.title %}{{ item.title }}{% else %}No title yet{% endif %}</span>
+            <span class="title"><a href="{% url rp_edit item.id %}">{% if item.title %}{{ item.title }}{% else %}No title yet{% endif %}</a></span>
             <span class="url">{{ item.url }}</span>
             </p>
           </td>
