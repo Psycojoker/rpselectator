@@ -15,7 +15,7 @@
 {% for item in object_list %}
         <!-- new item -->
         <tr>
-          <td>{{ item.datetime }}</td>
+          <td>{{ item.datetime|date:"d/m/Y" }}</td>
           <td>
             <p class="trigger">
             <span class="title">{% if item.title %}{{ item.title }}{% else %}No title yet{% endif %}</span>
