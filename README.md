@@ -12,4 +12,4 @@ Dependancies:
 * mechanize
 * oice.langdet
 
-All findable on [pypi](http://pypi.python.org) (use either "pip install" or "easy_install")
+All findable on [pypi](http://pypi.python.org) (use either "pip install -r pip-requirements.txt" or "pip install" or "easy_install")
