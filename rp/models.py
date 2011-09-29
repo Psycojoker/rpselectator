@@ -5,7 +5,7 @@ from django.db import models
 class RP(models.Model):
     title = models.CharField(max_length=90, null=True, blank=True)
     url = models.URLField(unique=True)
-    published = models.BooleanField(default=False)
+    published = models.NullBooleanField(default=None, null=True)
     langue = models.CharField(max_length=2, null=True, blank=True)
 
     def __unicode__(self):
