@@ -331,3 +331,6 @@ td a:hover, td a:focus {
   top: 0;
   left: 3.25em;
 }
+.edit .preview {
+  background: url('imgs/loader.gif') no-repeat 60% 40%;
+}
