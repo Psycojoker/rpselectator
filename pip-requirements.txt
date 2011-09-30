@@ -1,3 +1,4 @@
 django
 mechanize
 oice.langdet
+django-pagination
