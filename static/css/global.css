@@ -332,5 +332,5 @@ td a:hover, td a:focus {
   left: 3.25em;
 }
 .edit .preview {
-  background: url('imgs/loader.gif') no-repeat 60% 40%;
+  background: url('imgs/loader.gif') no-repeat 60% 20%;
 }
