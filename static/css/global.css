@@ -334,3 +334,14 @@ td a:hover, td a:focus {
 .edit .preview {
   background: url('imgs/loader.gif') no-repeat 60% 20%;
 }
+.edit label a {
+  color: #4183C4;
+  text-decoration: none;
+}
+.edit label a:hover:after,
+.edit label a:focus:after {
+  content: ' (ext)';
+  font-size: .7em;
+  font-weight: normal;
+  vertical-align: top;
+}
