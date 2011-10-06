@@ -10,7 +10,7 @@
 <body>
 <div id="wrapper">
   <ul id="nav">
-      <li><a href="{% url rp_list %}">Manage latest links</a></li><li><a href="{% url rp_list_published %}">Published links</a></li><li><a href="{% url rp_list_archived %}">Archives</a></li><li id="rss"><a href="{% url rss %}">RSS</a></li>
+      <li><a href="{% url rp_list %}">Manage latest links</a></li><li><a href="{% url rp_list_published %}">Published links</a></li><li><a href="{% url rp_list_archived %}">Archives</a></li>{% if user.is_authenticated %}<li><a href="{% url logout %}">Logout</a></li>{% endif %}<li id="rss"><a href="{% url rss %}">RSS</a></li>
   </ul>
 
   <div id="global">
