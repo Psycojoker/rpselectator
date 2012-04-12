@@ -4,6 +4,7 @@ from urllib2 import urlopen
 from datetime import datetime
 
 from rp.models import RP
+from django.db import transaction
 
 def fill():
     def get_urls(url):
@@ -36,7 +37,8 @@ def fill():
             stdout.flush()
         stdout.write("%s/%s\r\n" % (total_len, total_len))
 
-    get_urls("http://nurpa.be/log")
+    with transaction.commit_on_success():
+        get_urls("http://nurpa.be/log")
     #a += get_urls("http://nurpa.be/log-archive")
 
     print
