@@ -5,7 +5,7 @@ from rp.models import RP
 from rp.views import encoding_sucks
 
 b = mechanize.Browser()
-for rp in RP.objects.filter(title=None):
+for rp in RP.objects.filter(title=None, published=None):
     choose_biggest = lambda choices: max(choices, key=lambda x: len(x))
     try:
         b.open(rp.url)
