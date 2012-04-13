@@ -19,5 +19,5 @@ for rp in RP.objects.filter(title=None, published=None):
         rp.title = "[%s] %s" % (site.encode("Utf-8"), title)
         rp.save()
         print rp.title
-    except (urllib2.URLError, mechanize._mechanize.BrowserStateError):
-        continue
+    except (urllib2.URLError, mechanize._mechanize.BrowserStateError), e:
+        print "Error on:", rp.url, ":", e
