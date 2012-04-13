@@ -17,7 +17,7 @@ for rp in RP.objects.filter(title=None, published=None):
         title = choose_biggest(title.split(u" « "))
         title = choose_biggest(title.split(u" – "))
         rp.title = "[%s] %s" % (site.encode("Utf-8"), title)
-        #rp.save()
+        rp.save()
         print rp.title
     except (urllib2.URLError, mechanize._mechanize.BrowserStateError):
         continue
