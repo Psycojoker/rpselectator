@@ -1,5 +1,3 @@
-# Create your views here.
-
 from time import sleep
 from re import sub
 from urllib2 import urlopen, URLError
