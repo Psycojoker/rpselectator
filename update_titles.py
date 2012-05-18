@@ -2,7 +2,7 @@
 import mechanize
 import urllib2
 from rp.models import RP
-from rp.views import encoding_sucks
+from rp.utils import encoding_sucks
 
 b = mechanize.Browser()
 for rp in RP.objects.filter(title=None, published=None):
