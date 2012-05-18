@@ -27,9 +27,9 @@
             <div class="edit">
               <form action="" method="post">
                 {% csrf_token %}
-                <p><label for="lang-1">Language</label> <input type="text" name="lang" id="lang-1" class="lang" value="{{ item.get_langue }}" /></p>
-                <p><label for="title-1">Title</label> <textarea type="text" name="title" id="title-1" class="tweet">[{{ item.get_langue }}]{{ item.get_title }}</textarea></p>
-                <p><label for="url-1"><a href="{{ item.url }}">URL</a></label> <input type="text" name="url" id="url-1" class="link" value="{{ item.url }}" /></p>
+                <p><label for="lang-{{ item.id }}">Language</label> <input type="text" name="lang" id="lang-1" class="lang" value="{{ item.get_langue }}" /></p>
+                <p><label for="title-{{ item.id }}">Title</label> <textarea type="text" name="title" id="title-1" class="tweet">[{{ item.get_langue }}]{{ item.get_title }}</textarea></p>
+                <p><label for="url-{{ item.id }}"><a href="{{ item.url }}">URL</a></label> <input type="text" name="url" id="url-1" class="link" value="{{ item.url }}" /></p>
                 <p class="submit">
                   <span>
                     <input type="radio" name="action" id="arch-1" value="archive" checked="checked" /> <label for="arch-1" style="margin-right: 1em;">Archive</label>
