@@ -24,6 +24,7 @@
             <span class="title">{{ item.get_title }}</span>
             <span class="url">{{ item.url }}</span>
             </p>
+            <p class="info"></p>
             <div class="edit">
               <form action="{% url save %}" method="post">
                 <div style="display:none"><input type="hidden" value="{{ item.id }}" name="id"></div>
@@ -83,6 +84,10 @@ $(document).ready(function(){
        // $(this).parent().parent().parent().hide("slow");
        var form = $(this);
        $.post("{% url save %}", $(this).serialize(), function(data) {
+         if (data == "ok") {
+         } else {
+             form.parent().parent().find('p.info').append('<span style="color: red">Error in form!</span>')
+         }
      })
  });
 });

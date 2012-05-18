@@ -1,3 +1,4 @@
+from json import dumps
 from django.conf.urls.defaults import patterns, url
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
@@ -13,7 +14,11 @@ class RPForm(ModelForm):
         model = RP
 
 def save(request):
+    if not RP.objects.get(id=request.POST["id"]):
+        return HttpResponse("nok")
     form = RPForm(request.POST, instance=RP.objects.get(id=request.POST["id"]))
+    if not form.is_valid():
+        return HttpResponse(dumps(form.errors))
     form.save()
     return HttpResponse("ok")
 
