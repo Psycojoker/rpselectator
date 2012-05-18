@@ -25,7 +25,8 @@
             <span class="url">{{ item.url }}</span>
             </p>
             <div class="edit">
-              <form action="" method="post">
+              <form action="{% url save %}" method="post">
+                <div style="display:none"><input type="hidden" value="{{ item.id }}" name="id"></div>
                 {% csrf_token %}
                 <p><label for="lang-{{ item.id }}">Language</label> <input type="text" name="lang" id="lang-1" class="lang" value="{{ item.get_langue }}" /></p>
                 <p><label for="title-{{ item.id }}">Title</label> <textarea type="text" name="title" id="title-1" class="tweet">[{{ item.get_langue }}]{{ item.get_title }}</textarea></p>
@@ -76,6 +77,14 @@ $(document).ready(function(){
 
     edit.slideToggle();
   });
+
+   $('form').submit(function(event){
+       event.preventDefault();
+       // $(this).parent().parent().parent().hide("slow");
+       var form = $(this);
+       $.post("{% url save %}", $(this).serialize(), function(data) {
+     })
+ });
 });
 
 jQuery(document).ajaxSend(function(event, xhr, settings) {
