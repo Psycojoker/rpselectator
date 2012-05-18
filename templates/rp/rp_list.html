@@ -32,8 +32,8 @@
                 <p><label for="url-{{ item.id }}"><a href="{{ item.url }}">URL</a></label> <input type="text" name="url" id="url-1" class="link" value="{{ item.url }}" /></p>
                 <p class="submit">
                   <span>
-                    <input type="radio" name="action" id="arch-1" value="archive" checked="checked" /> <label for="arch-1" style="margin-right: 1em;">Archive</label>
-                    <input type="radio" name="action" id="pub-1" value="publish" /> <label for="pub-1">Publish</label>
+                    <input type="radio" name="published" id="arch-1" value="False" checked="checked" /> <label for="arch-1" style="margin-right: 1em;">Archive</label>
+                    <input type="radio" name="published" id="pub-1" value="True" /> <label for="pub-1">Publish</label>
                   </span>
                   <input type="hidden" value="" />
                   <input type="submit" value="Save" />
