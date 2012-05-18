@@ -21,7 +21,7 @@
           <td>{{ item.datetime|date:"d/m/Y" }}</td>
           <td>
             <p class="trigger">
-            <span class="title">{% if item.title %}{{ item.title }}{% else %}No title yet{% endif %}</span>
+            <span class="title">{{ item.get_title }}</span>
             <span class="url">{{ item.url }}</span>
             </p>
             <div class="edit">
