@@ -21,9 +21,28 @@
           <td>{{ item.datetime|date:"d/m/Y" }}</td>
           <td>
             <p class="trigger">
-            <span class="title"><a href="{% url rp_edit item.id %}">{% if item.title %}{{ item.title }}{% else %}No title yet{% endif %}</a></span>
+            <span class="title">{% if item.title %}{{ item.title }}{% else %}No title yet{% endif %}</span>
             <span class="url">{{ item.url }}</span>
             </p>
+            <div class="edit">
+              <form action="" method="post">
+                <p><label for="lang-1">Language</label> <input type="text" name="lang" id="lang-1" class="lang" value="{{ item.get_langue }}" /></p>
+                <p><label for="title-1">Title</label> <textarea type="text" name="title" id="title-1" class="tweet">[{{ item.get_langue }}]{{ item.get_title }}</textarea></p>
+                <p><label for="url-1"><a href="{{ item.url }}">URL</a></label> <input type="text" name="url" id="url-1" class="link" value="{{ item.url }}" /></p>
+                <p class="submit">
+                  <span>
+                    <input type="radio" name="action" id="arch-1" value="archive" checked="checked" /> <label for="arch-1" style="margin-right: 1em;">Archive</label>
+                    <input type="radio" name="action" id="pub-1" value="publish" /> <label for="pub-1">Publish</label>
+                  </span>
+                  <input type="hidden" value="" />
+                  <input type="submit" value="Save" />
+                </p>
+              </form>
+              <div class="preview">
+                <p class="label">Preview</p>
+                <noscript><iframe src="{{ item.url }}"></iframe></noscript>
+              </div>
+            </div>
           </td>
         </tr>
 {% endfor %}
