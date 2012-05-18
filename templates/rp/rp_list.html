@@ -39,4 +39,23 @@
 {% else %}
 <p>No links.</p>
 {% endif %}
+<script src="/static/js/libs/jquery-1.6.4.min.js"></script>
+<script src="/static/js/charCount.js"></script>
+<script>
+$(document).ready(function(){
+  $('.edit').hide();
+  $('.tweet').charCount();
+  $('.trigger').click(function(){
+    var edit = $(this).siblings('.edit');
+    var url  = edit.find('.link').val();
+    var anch = $(this).parent().parent();
+
+    $('html, body').animate({ scrollTop: anch.offset().top }, 500);
+
+    if (edit.find('iframe').length == 0) { edit.find('.preview').append('<iframe src="' + url + '"></iframe>'); }
+
+    edit.slideToggle();
+  });
+});
+</script>
 {% endblock %}
