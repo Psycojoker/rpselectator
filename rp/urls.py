@@ -3,9 +3,7 @@ from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 
 from models import RP
-
 from feeds import RSS
-
 from views import fill
 
 urlpatterns = patterns('rp.views',
