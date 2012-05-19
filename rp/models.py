@@ -51,7 +51,7 @@ class RP(models.Model):
         try:
             b.open(self.url)
             return "[%s] %s" % (site.encode("Utf-8"), encoding_sucks(b.title()))
-        except URLError:
+        except Exception:
             self.title = "[%s] Error: couldn't fetch the title" % site
             self.save()
             return self.title
