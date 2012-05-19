@@ -4,6 +4,7 @@ from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.forms import ModelForm
+from django.shortcuts import get_object_or_404
 
 from models import RP
 from feeds import RSS
@@ -22,6 +23,10 @@ def save(request):
     form.save()
     return HttpResponse("ok")
 
+def item_json(request, pk):
+    item = get_object_or_404(RP, pk=pk)
+    return HttpResponse(dumps({"title": item.get_title(), "lang": item.get_langue()}))
+
 urlpatterns = patterns('rp.views',
     url(r'^fill/$', login_required(fill), name="fill"),
     url(r'^save/$', login_required(save), name="save"),
@@ -29,4 +34,5 @@ urlpatterns = patterns('rp.views',
     url(r'^published/$', login_required(ListView.as_view(queryset=RP.objects.filter(published=True).order_by('-id'))), name="rp_list_published"),
     url(r'^archived/$', login_required(ListView.as_view(queryset=RP.objects.filter(published=False).order_by('-id'))), name="rp_list_archived"),
     url(r'^rss.xml$', RSS(), name="rss"),
+    url(r'^item_json/(?P<pk>\d+)/$', item_json, name="item_json"),
 )

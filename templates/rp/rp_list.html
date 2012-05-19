@@ -21,7 +21,7 @@
           <td>{{ item.datetime|date:"d/m/Y" }}</td>
           <td>
             <p class="trigger">
-            <span class="title">{{ item.get_title }}</span>
+            <span class="title" id="title_{{ item.id }}">{% if item.title != None %}{{ item.title }}{% else %}Loading...{% endif %}</span>
             <span class="url">{{ item.url }}</span>
             </p>
             <div class="info"></div>
@@ -29,9 +29,9 @@
               <form action="{% url save %}" method="post">
                 <div style="display:none"><input type="hidden" value="{{ item.id }}" name="id"></div>
                 {% csrf_token %}
-                <p><label for="lang-{{ item.id }}">Language</label> <input type="text" name="lang" id="lang-1" class="lang" value="{{ item.get_langue }}" /></p>
-                <p><label for="title-{{ item.id }}">Title</label> <textarea type="text" name="title" id="title-1" class="tweet">[{{ item.get_langue }}]{{ item.get_title }}</textarea></p>
-                <p><label for="url-{{ item.id }}"><a href="{{ item.url }}">URL</a></label> <input type="text" name="url" id="url-1" class="link" value="{{ item.url }}" /></p>
+                <p><label for="lang-{{ item.id }}">Language</label> <input type="text" name="lang" id="lang_{{ item.id }}" class="lang" value="{% if item.lang != None %}{{ item.langue }}{% else %}Loading...{% endif %}" /></p>
+                <p><label for="title-{{ item.id }}">Title</label> <textarea type="text" name="title" id="tweet_{{ item.id }}" class="tweet">{% if item.title != None and item.lang != None %}[{{ item.get_langue }}]{{ item.get_title }}{% else %}Loading...{% endif %}</textarea></p>
+                <p><label for="url-{{ item.id }}"><a href="{{ item.url }}">URL</a></label> <input type="text" name="url" id="url-{{ item.id }}" class="link" value="{{ item.url }}" /></p>
                 <p class="submit">
                   <span>
                     <input type="radio" name="published" id="arch-{{ item.id }}" value="False" checked="checked" /> <label for="arch-{{ item.id }}" style="margin-right: 1em;">Archive</label>
@@ -65,6 +65,19 @@
 <script src="/static/js/charCount.js"></script>
 <script>
 $(document).ready(function(){
+
+  {% for item in object_list %}
+  {% if item.title == None or item.langue == None %}
+  $.get('{% url item_json item.id %}', function(data)
+  {
+      var data = eval("(" + data + ")");
+      $("#title_{{ item.id }}").html(data["title"]);
+      $("#lang_{{ item.id }}").val(data["lang"]);
+      $("#tweet_{{ item.id }}").html("[" + data["lang"] + "]" + data["title"]);
+  });
+  {% endif %}
+  {% endfor %}
+
   $('.edit').hide();
   $('.tweet').charCount();
   $('.trigger').click(function(){
