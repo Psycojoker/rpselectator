@@ -57,10 +57,10 @@ class RP(models.Model):
             if len(result) == 0:
                 raise Exception("browser timedout or failed")
             browser = result[0]
-            self.title = clean_title(browser.title())
+            self.title = "[%s] %s" % (site.encode("Utf-8"), encoding_sucks(clean_title(browser.title())))
             self.langue = get_langue_from_html(browser.response().get_data())
             self.save()
-            return "[%s] %s" % (site.encode("Utf-8"), encoding_sucks(self.title))
+            return self.title
         except Exception as e:
             print "Error: fail on %s: %s" % (self.url, e)
             self.title = "[%s] Error: couldn't fetch the title" % site
