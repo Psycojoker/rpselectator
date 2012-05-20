@@ -3,10 +3,8 @@
 from datetime import datetime
 from urllib2 import urlopen, URLError
 from django.db import models
-from re import sub
-from oice.langdet import langdet
 from mechanize import Browser
-from utils import encoding_sucks
+from utils import encoding_sucks, get_langue_from_html, format_site_from_url, clean_title
 
 
 class RP(models.Model):
@@ -30,13 +28,10 @@ class RP(models.Model):
             return self.langue
 
         try:
-            text = urlopen(self.url).read()
-            text = sub("[^\w ]", lambda x: "", text)
-            lang = langdet.LanguageDetector.detect(text).iso.upper()
-            if lang in ('FR', 'EN', 'ES'):
-                self.langue = lang
-                self.save()
-                return lang
+            lang = get_langue_from_html(urlopen(self.url).read())
+            self.langue = lang
+            self.save()
+            return lang
         except URLError:
             self.langue = ""
             self.save()
@@ -46,12 +41,17 @@ class RP(models.Model):
         if self.title is not None:
             return self.title
 
-        b = Browser()
-        site = ".".join(map(lambda x: x.capitalize(), self.url.split("/")[2].replace("www.", "").split(".")[:-1]))
+        site = format_site_from_url(self.url)
+
         try:
-            b.open(self.url)
-            return "[%s] %s" % (site.encode("Utf-8"), encoding_sucks(b.title()))
-        except Exception:
+            browser = Browser()
+            browser.open(self.url, timeout=9.00)
+            self.title = clean_title(browser.title())
+            self.langue = get_langue_from_html(browser.response().get_data())
+            self.save()
+            return "[%s] %s" % (site.encode("Utf-8"), encoding_sucks(self.title))
+        except Exception as e:
+            print "Error: fail on %s: %s" % (self.url, e)
             self.title = "[%s] Error: couldn't fetch the title" % site
             self.save()
             return self.title

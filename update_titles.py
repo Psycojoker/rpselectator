@@ -2,20 +2,15 @@
 import mechanize
 import urllib2
 from rp.models import RP
-from rp.utils import encoding_sucks
+from rp.utils import clean_title, format_site_from_url, get_langue_from_html
 
-b = mechanize.Browser()
+browser = mechanize.Browser()
 for rp in RP.objects.filter(title=None, published=None):
-    choose_biggest = lambda choices: max(choices, key=lambda x: len(x))
     try:
-        b.open(rp.url)
-        site = ".".join(map(lambda x: x.capitalize(), rp.url.split("/")[2].replace("www.", "").split(".")[:-1]))
-        title = encoding_sucks(b.title())
-        title = choose_biggest(title.split(" - "))
-        title = choose_biggest(title.split(" | "))
-        title = choose_biggest(title.split(" ["))
-        title = choose_biggest(title.split(u" « "))
-        title = choose_biggest(title.split(u" – "))
+        browser.open(rp.url)
+        site = format_site_from_url(rp.url)
+        title = clean_title(browser.title())
+        rp.langue = get_langue_from_html(browser.response().get_data())
         rp.title = "[%s] %s" % (site.encode("Utf-8"), title)
         rp.save()
         print rp.title
