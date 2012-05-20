@@ -1,5 +1,6 @@
 # -*- coding:Utf-8 -*-
 
+import threading
 from datetime import datetime
 from urllib2 import urlopen, URLError
 from django.db import models
@@ -44,8 +45,18 @@ class RP(models.Model):
         site = format_site_from_url(self.url)
 
         try:
-            browser = Browser()
-            browser.open(self.url, timeout=9.00)
+            result = []
+            def process_website(result):
+                browser = Browser()
+                browser.set_handle_robots(False)
+                browser.open(self.url, timeout=9.00)
+                result.append(browser)
+            thread = threading.Thread(target=process_website, args=(result,))
+            thread.start()
+            thread.join(timeout=10)
+            if len(result) == 0:
+                raise Exception("browser timedout or failed")
+            browser = result[0]
             self.title = clean_title(browser.title())
             self.langue = get_langue_from_html(browser.response().get_data())
             self.save()
