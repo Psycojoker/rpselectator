@@ -25,7 +25,7 @@ def save(request):
 
 def item_json(request, pk):
     item = get_object_or_404(RP, pk=pk)
-    return HttpResponse(dumps({"title": item.get_title(), "lang": item.get_langue()}))
+    return HttpResponse(dumps({"title": item.get_title(), "langue": item.get_langue()}))
 
 urlpatterns = patterns('rp.views',
     url(r'^fill/$', login_required(fill), name="fill"),
