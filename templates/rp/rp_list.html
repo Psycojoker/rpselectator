@@ -27,8 +27,6 @@
             <div class="info"></div>
             <div class="edit">
               <form action="{% url save %}" method="post">
-                <div style="display:none"><input type="hidden" value="{{ item.id }}" name="id"></div>
-                {% csrf_token %}
                 <p><label for="lang-{{ item.id }}">Language</label> <input type="text" name="lang" id="lang_{{ item.id }}" class="lang" value="{% if item.langue != None %}{{ item.langue }}{% else %}Loading...{% endif %}" /></p>
                 <p><label for="title-{{ item.id }}">Title</label> <textarea type="text" name="title" id="tweet_{{ item.id }}" class="tweet">{% if item.title != None and item.langue != None %}[{{ item.get_langue }}]{{ item.get_title }}{% else %}Loading...{% endif %}</textarea></p>
                 <p><label for="url-{{ item.id }}"><a href="{{ item.url }}">URL</a></label> <input type="text" name="url" id="url-{{ item.id }}" class="link" value="{{ item.url }}" /></p>
@@ -38,6 +36,8 @@
                     <input type="radio" name="published" id="pub-{{ item.id }}" value="True" /> <label for="pub-{{ item.id }}">Publish</label>
                   </span>
                   <input type="hidden" value="" />
+                  <div style="display:none"><input type="hidden" value="{{ item.id }}" name="id"></div>
+                  {% csrf_token %}
                   <input type="submit" value="Save" />
                 </p>
               </form>
