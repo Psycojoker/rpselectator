@@ -36,10 +36,10 @@
                     <input type="radio" name="published" id="pub-{{ item.id }}" value="True" /> <label for="pub-{{ item.id }}">Publish</label>
                   </span>
                   <input type="hidden" value="" />
-                  <div style="display:none"><input type="hidden" value="{{ item.id }}" name="id"></div>
-                  {% csrf_token %}
                   <input type="submit" value="Save" />
                 </p>
+                <div style="display:none"><input type="hidden" value="{{ item.id }}" name="id"></div>
+                {% csrf_token %}
               </form>
               <div class="preview">
                 <p class="label">Preview</p>
