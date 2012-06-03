@@ -102,7 +102,10 @@ $(document).ready(function(){
          } else if (data == "nok") {
              form.parent().parent().find('div.info').append('<p>Error: can\'t get the object!</p>')
          } else if (data != "nok") {
-             data;
+              var info = eval('(' + data + ')');
+              for (i in info) {
+                 form.parent().parent().find('div.info').append('<p><strong>Error on ' + i + ':</strong> ' + info[i][0] + '</p>');
+              }
          }
      })
  });
