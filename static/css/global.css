@@ -345,3 +345,7 @@ td a:hover, td a:focus {
 .edit .preview {
   background: url('imgs/loader.gif') no-repeat 60% 20%;
 }
+
+.info {
+  color: red;
+}
