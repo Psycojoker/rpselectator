@@ -16,11 +16,14 @@ class RPForm(ModelForm):
 
 def save(request):
     if not RP.objects.get(id=request.POST["id"]):
+        print "nok"
         return HttpResponse("nok")
     form = RPForm(request.POST, instance=RP.objects.get(id=request.POST["id"]))
     if not form.is_valid():
+        print "errors"
         return HttpResponse(dumps(form.errors))
     form.save()
+    print "ok"
     return HttpResponse("ok")
 
 def item_json(request, pk):
