@@ -15,10 +15,16 @@ class RPForm(ModelForm):
         model = RP
 
 def save(request):
-    if not RP.objects.get(id=request.POST["id"]):
-        print "nok"
-        return HttpResponse("nok")
-    form = RPForm(request.POST, instance=RP.objects.get(id=request.POST["id"]))
+    rp = get_object_or_404(RP, id=request.POST["id"])
+    form = RPForm(request.POST, instance=rp)
+
+    print "boudin", form["published"]
+    if form["published"].data == False:
+        print "caca"
+        rp.published = False
+        rp.save()
+        return HttpResponse("ok")
+
     if not form.is_valid():
         print "errors"
         return HttpResponse(dumps(form.errors))
