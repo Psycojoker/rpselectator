@@ -57,7 +57,7 @@ class RP(models.Model):
             if len(result) == 0:
                 raise Exception("browser timedout or failed")
             browser = result[0]
-            self.title = "[%s] %s" % (site.encode("Utf-8"), encoding_sucks(clean_title(browser.title())))
+            self.title = "[%s] %s" % (site.encode("Utf-8"), encoding_sucks(clean_title(browser.title())).lower().capitalize())
             self.langue = get_langue_from_html(browser.response().get_data())
             self.save()
             return self.title
