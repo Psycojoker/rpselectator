@@ -30,8 +30,11 @@ def fill():
             if not url.strip():
                 continue
             date, url = url.split(" ", 1)
-            if not RP.objects.filter(url=url):
-                RP.objects.create(url=url, datetime=datetime.fromtimestamp(int(date)))
+            try:
+                if not RP.objects.filter(url=url):
+                    RP.objects.create(url=url, datetime=datetime.fromtimestamp(int(date)))
+            except Exception: # encoding sucks
+                pass
             a += 1
             stdout.write("%s/%s\r" % (a, total_len))
             stdout.flush()
