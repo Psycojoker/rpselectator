@@ -1,7 +1,7 @@
 (function($) {
   $.fn.charCount = function(options){
     var defaults = {
-      allowed: 120,
+      allowed: 119,
       warning: 10,
       css: 'counter',
       counterElement: 'span',

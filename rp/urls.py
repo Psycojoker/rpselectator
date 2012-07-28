@@ -18,16 +18,17 @@ def save(request):
     rp = get_object_or_404(RP, id=request.POST["id"])
     form = RPForm(request.POST, instance=rp)
 
-    if not form.is_valid():
-        print "errors"
-        return HttpResponse(dumps(form.errors))
+    if form["published"].data:
+        if not form.is_valid():
+            print "errors"
+            return HttpResponse(dumps(form.errors))
+        else:
+            form.save()
 
+    rp.published = form["published"].data
     rp.langue = request.POST["lang"]
-    if form["published"].data == False:
-        rp.published = False
 
     rp.save()
-    form.save()
 
     return HttpResponse("ok")
 
