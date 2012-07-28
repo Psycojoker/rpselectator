@@ -18,18 +18,17 @@ def save(request):
     rp = get_object_or_404(RP, id=request.POST["id"])
     form = RPForm(request.POST, instance=rp)
 
-    print "boudin", form["published"]
-    if form["published"].data == False:
-        print "caca"
-        rp.published = False
-        rp.save()
-        return HttpResponse("ok")
-
     if not form.is_valid():
         print "errors"
         return HttpResponse(dumps(form.errors))
+
+    rp.langue = request.POST["lang"]
+    if form["published"].data == False:
+        rp.published = False
+
+    rp.save()
     form.save()
-    print "ok"
+
     return HttpResponse("ok")
 
 def item_json(request, pk):

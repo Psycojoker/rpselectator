@@ -9,7 +9,7 @@ from utils import encoding_sucks, get_langue_from_html, format_site_from_url, cl
 
 
 class RP(models.Model):
-    title = models.CharField(max_length=90, null=True, blank=True)
+    title = models.CharField(max_length=120, null=True, blank=True)
     url = models.URLField(unique=True)
     published = models.NullBooleanField(default=None, null=True)
     langue = models.CharField(max_length=2, null=True, blank=True)
