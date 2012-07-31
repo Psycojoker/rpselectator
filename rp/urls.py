@@ -24,11 +24,9 @@ def save(request):
             return HttpResponse(dumps(form.errors))
         else:
             form.save()
-
-    rp.published = form["published"].data
-    rp.langue = request.POST["lang"]
-
-    rp.save()
+    else:
+        rp.published = form["published"].data
+        rp.save()
 
     return HttpResponse("ok")
 
