@@ -16,42 +16,49 @@
       <tbody>
 
 {% for item in object_list %}
-        <!-- new item -->
-        <tr>
-          {% if item.published %}
-            <td>{{ item.published_date|date:"d/m/Y" }}</td>
-          {% else %}
-            <td>{{ item.datetime|date:"d/m/Y" }}</td>
-          {% endif %}
-          <td>
-            <p class="trigger">
+<!-- new item -->
+<tr>
+    {% if item.published %}
+    <td>{{ item.published_date|date:"d/m/Y" }}</td>
+    {% else %}
+    <td>{{ item.datetime|date:"d/m/Y" }}</td>
+    {% endif %}
+    <td>
+        <p class="trigger">
             <span class="title" id="title_{{ item.id }}">{% if item.title != None %}{{ item.title }}{% else %}Loading...{% endif %}</span>
             <span class="url">{{ item.url }}</span>
-            </p>
-            <div class="info"></div>
-            <div class="edit">
-              <form action="{% url save %}" method="post">
-                <p><label for="lang-{{ item.id }}">Language</label> <input type="text" name="langue" id="lang_{{ item.id }}" class="lang" value="{% if item.langue != None %}{{ item.langue }}{% else %}Loading...{% endif %}" /></p>
-                <p><label for="title-{{ item.id }}">Title</label> <textarea type="text" name="title" id="tweet_{{ item.id }}" class="tweet">{% if item.title != None %}{{ item.get_title }}{% else %}Loading...{% endif %}</textarea></p>
-                <p><label for="url-{{ item.id }}"><a href="{{ item.url }}">URL</a></label> <input type="text" name="url" id="url-{{ item.id }}" class="link" value="{{ item.url }}" /></p>
+        </p>
+        <div class="info"></div>
+        <div class="edit">
+            <form action="{% url save %}" method="post">
+                <p style="padding-top: 15px;">
+                    <label for="title-{{ item.id }}">Title</label>
+                    <textarea type="text" name="title" id="tweet_{{ item.id }}" class="tweet">{% if item.title != None %}{{ item.get_title }}{% else %}Loading...{% endif %}</textarea>
+                </p>
+                <p>
+                    <label for="url-{{ item.id }}">
+                        <a href="{{ item.url }}">URL</a>
+                    </label>
+                    <input type="text" name="url" id="url-{{ item.id }}" class="link" value="{{ item.url }}" />
+                </p>
                 {% csrf_token %}
                 <p class="submit">
-                  <span>
-                    <input type="radio" name="published" id="arch-{{ item.id }}" value="False" checked="checked" /> <label for="arch-{{ item.id }}" style="margin-right: 1em;">Archive</label>
-                    <input type="radio" name="published" id="pub-{{ item.id }}" value="True" /> <label for="pub-{{ item.id }}">Publish</label>
-                  </span>
-                  <input type="hidden" value="" />
-                  <input type="submit" value="Save" />
+                    <span>
+                        <input type="radio" name="published" id="arch-{{ item.id }}" value="False" checked="checked" /> <label for="arch-{{ item.id }}" style="margin-right: 1em;">Archive</label>
+                        <input type="radio" name="published" id="pub-{{ item.id }}" value="True" /> <label for="pub-{{ item.id }}">Publish</label>
+                    </span>
+                    <input type="hidden" value="" />
+                    <input type="submit" value="Save" />
                 </p>
                 <div style="display:none"><input type="hidden" value="{{ item.id }}" name="id"></div>
-              </form>
-              <div class="preview">
-                <p class="label">Preview</p>
-                <noscript><iframe src="{{ item.url }}"></iframe></noscript>
-              </div>
+                </form>
+                <div class="preview">
+                    <p class="label">Preview</p>
+                    <noscript><iframe src="{{ item.url }}"></iframe></noscript>
+                </div>
             </div>
-          </td>
-        </tr>
+        </td>
+    </tr>
 {% endfor %}
 
       </tbody>
@@ -76,7 +83,6 @@ $(document).ready(function(){
   {
       var data = eval("(" + data + ")");
       $("#title_{{ item.id }}").html(data["title"]);
-      $("#lang_{{ item.id }}").val(data["langue"]);
       $("#tweet_{{ item.id }}").html("[" + data["langue"] + "]" + data["title"]);
   });
   {% endif %}
