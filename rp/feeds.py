@@ -11,8 +11,6 @@ class RSS(Feed):
 
     def item_title(self, item):
         title = item.title if item.title else "No title yet"
-        if item.langue:
-            title = "[%s]%s" % (item.langue, title)
         return title
 
     def item_link(self, item):
