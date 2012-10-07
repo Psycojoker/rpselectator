@@ -6,7 +6,7 @@ Prototype of press-review manager for [NURPA](http://nurpa.be).
 
 It's a classic [django](http://djangoproject.com) project.
 
-Dependancies:
+Dependencies:
 
 * django
 * mechanize
