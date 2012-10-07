@@ -11,6 +11,12 @@
         <tr>
           <th style="width: 15%;">Added</th>
           <th>URL</th>
+          <th>
+            <select id="actions">
+              <option value="" selected="selected">With selected:</option>
+              <option value="archive">Archive</option>
+            </select>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -58,7 +64,8 @@
                 </div>
             </div>
         </td>
-    </tr>
+    <td><input type="checkbox" name="action" value="{{ item.id }}"></td>
+</tr>
 {% endfor %}
 
       </tbody>
@@ -117,8 +124,45 @@ $(document).ready(function(){
                  form.parent().parent().find('div.info').append('<p><strong>Error on ' + i + ':</strong> ' + info[i][0] + '</p>');
               }
          }
-     })
- });
+       })
+   });
+
+   $('#actions').change(function(event)
+   {
+       // Archive selected box
+       if (this.value == "archive")
+       {
+           var ids = new Array;
+           $('input:checkbox[name=action]:checked').each(function(index, element)
+           {
+               ids.push(element.value);
+           });
+
+           if (ids.length > 0)
+           {
+               req = { 'ids' : ids };
+               var jqxhr = $.post('{% url save_archives %}', req)
+                   // Hide archived articles
+                   .success(function()
+                   {
+                       $('input:checkbox[name=action]:checked').each(function(index, element)
+                       {
+                           $('#title_' + element.value).parent().parent().parent().hide("slow");
+                       });
+                   })
+                   // >.<'
+                   .error(function()
+                   {
+                       alert('Error on Archive selected box POST request.');
+                   })
+                   .complete(function()
+                   {
+                       // Keep the prompt value selected
+                       $('#actions').get(0).selectedIndex = 0;
+                   });
+           }
+       }
+   });
 });
 
 jQuery(document).ajaxSend(function(event, xhr, settings) {
